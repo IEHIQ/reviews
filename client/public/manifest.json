@@ -1,0 +1,10 @@
+{
+  "short_name": "Reviews-Frontend",
+  "name": "Reviews App Frontend",
+  "icons": [
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
