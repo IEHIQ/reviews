@@ -7,6 +7,10 @@ import TextInput from "./TextInput";
 function HiddenInput(props) {
     const [isVisible, setVisibility] = useState(props.isVisible || false);
 
+    function handleToggle() {
+        setVisibility(!isVisible);
+    }
+
     return(
         <div className="flex-container flex-row">
             <TextInput 
@@ -19,7 +23,7 @@ function HiddenInput(props) {
                 value={ props.value }
             />
             <VisibilityToggle 
-                onToggle={ () => { setVisibility(!isVisible); } }  
+                onToggle={ handleToggle }  
                 isVisible={ isVisible }
             />
         </div>

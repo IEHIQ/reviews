@@ -21,6 +21,12 @@ function SecondStep(props) {
     const [isBirthdateValid, setBirthdateValidity] = useState(ValidatePropRegex(props.birthdateRegex, birthdate));
     const [isSexValid, setSexValidity] = useState(false);
 
+    const sexOptions = [
+        { id : 0, value : 'm', text : 'Мужской'},
+        { id : 1, value : 'w', text : 'Женский'},
+        { id : 2, value : 'n', text : 'Предпочитаю не сообщать'}
+    ];
+
     function handleSubmit(data) {
         if (props.onSubmit)
             props.onSubmit(
@@ -36,6 +42,46 @@ function SecondStep(props) {
             );
     }
 
+    function handleNameChange(value) {
+        setName(value);
+    }
+
+    function handlePhoneChange(value) {
+        setPhone(value);
+    }
+
+    function handleLocationChange(value) {
+        setLocation(value);
+    }
+
+    function handleBirthdateChange(value) {
+        setBirthdate(value);
+    }
+
+    function handleSexChange(value) {
+        setSex(value);
+    }
+
+    function handleBioChange(value) {
+        setBio(value);
+    }
+
+    function handleNameValidity(validity) {
+        setNameValidity(validity);
+    }
+
+    function handlePhoneValidity(validity) {
+        setPhoneValidity(validity);
+    }
+
+    function handleBirthdateValidity(validity) {
+        setBirthdateValidity(validity);
+    }
+
+    function handleSexValidity(validity) {
+        setSexValidity(validity);
+    }
+
     return (
         <div className='card flex-container flex-column'>
             <p className='form-label l b'>Регистрация</p>
@@ -48,8 +94,8 @@ function SecondStep(props) {
                 </div>
                 <div className='flex-container flex-column'>
                     <TextInput 
-                        onChange={ (value)=>{ setName(value) } }
-                        handleValidity={ (validity) => { setNameValidity(validity) } }
+                        onChange={ handleNameChange }
+                        handleValidity={ handleNameValidity }
                         regex={ props.nameRegex }
                         type='text'
                         placeholder='Имя'
@@ -57,8 +103,8 @@ function SecondStep(props) {
                         value={ name }
                     />
                     <TextInput 
-                        onChange={ (value)=>{ setPhone(value) } }
-                        handleValidity={ (validity) => { setPhoneValidity(validity) } }
+                        onChange={ handlePhoneChange }
+                        handleValidity={ handlePhoneValidity }
                         regex={ props.phoneRegex }
                         type='text'
                         placeholder='Телефон'
@@ -66,15 +112,15 @@ function SecondStep(props) {
                         value={ phone }
                     />
                     <TextInput 
-                        onChange={ (value)=>{ setLocation(value) } }
+                        onChange={ handleLocationChange }
                         type='text'
                         placeholder='Место жительства'
                         value={ location }
                     />
                     <p className='field-label s'>Дата рождения</p>
                     <TextInput 
-                        onChange={ (value)=>{ setBirthdate(value) } }
-                        handleValidity={ (validity) => { setBirthdateValidity(validity) } }
+                        onChange={ handleBirthdateChange }
+                        handleValidity={ handleBirthdateValidity }
                         regex={ props.birthdateRegex }
                         type='date'
                         required={ true }
@@ -82,22 +128,16 @@ function SecondStep(props) {
                     />
                     <p className='field-label s'>Пол</p>
                     <Select
-                        onChange={ (value)=>{ setSex(value.text) } }
-                        handleValidity={ (validity) => { setSexValidity(validity) } }
-                        options={
-                            [
-                                { value : 'm', text : 'Мужской'},
-                                { value : 'w', text : 'Женский'},
-                                { value : 'n', text : 'Предпочитаю не сообщать'}
-                            ]
-                        }
+                        onChange={ handleSexChange }
+                        handleValidity={ handleSexValidity }
+                        options={ sexOptions }
                         required={ true }
                     />
                 </div>
                 <div className='flex-container flex-column'>
                     <TextArea 
                         placeholder='О себе'
-                        onChange={ (text) => { setBio(text) } }
+                        onChange={ handleBioChange }
                         value={ bio }
                     />
                 </div>

@@ -5,13 +5,13 @@ import SecondStep from './steps/SecondStep';
 import Confirmation from './steps/Confirmation';
 
 function Register(props) {
-
     const [firstStepData, setFirstStepData] = useState({
         login : '',
         password : '',
         email : '',
         isBusinessman : false
     });
+
     const [secondStepData, setSecondStepData] = useState({
         name : '',
         phone : '',
@@ -22,6 +22,16 @@ function Register(props) {
         sex : ''
     });
 
+    function onFirstStepSubmit(data) {
+        console.log('First Step Data Changed : ', data);
+        setFirstStepData(data);
+    }
+
+    function onSecondStepSubmit(data) {
+        console.log('Second Step Data Changed : ', data);
+        setSecondStepData(data);
+    }
+
     return (
         <div>
             <Routes>
@@ -30,7 +40,7 @@ function Register(props) {
                     element = { 
                         <FirstStep 
                             data={ firstStepData }
-                            onSubmit={ (data) => { console.log('first data changed', data); setFirstStepData(data); } }
+                            onSubmit={ onFirstStepSubmit }
                             loginRegex={ props.loginRegex } 
                             passwordRegex={ props.passwordRegex }
                             emailRegex={ props.emailRegex }
@@ -42,7 +52,7 @@ function Register(props) {
                     element = { 
                         <SecondStep 
                             data={ secondStepData }
-                            onSubmit={ (data) => { console.log('second data changed', data); setSecondStepData(data); } }
+                            onSubmit={ onSecondStepSubmit }
                             nameRegex={ props.nameRegex }
                             phoneRegex={ props.phoneRegex }
                             birthdateRegex={ props.birthdateRegex }

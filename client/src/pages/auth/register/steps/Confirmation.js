@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import TextOutput from '../../../../components/TextOutput';
 
 function Confirmation(props) {
+    const { login, password, email, isBusinessman } = props.firstStepData;
+    const { name, phone, bio, birthdate, profilePic, location, sex } = props.secondStepData;
+
     return (
         <div className='card flex-container flex-column'>
-            <div className='form-element'>
-                <p>Логин : { props.firstStepData.login }</p>
-                <p>Пароль : { props.firstStepData.password }</p>
-                <p>Почта : { props.firstStepData.email }</p>
-                <p>Владеете бизнесом : { props.firstStepData.isBusinessman ? 'Да' : 'Нет' }</p>
-                <p>Имя : { props.secondStepData.name }</p>
-                <p>Пол : { props.secondStepData.sex }</p>
-                <p>Телефон : { props.secondStepData.phone }</p>
-                <p>Дата рождения : { props.secondStepData.birthdate }</p>
-                <p>Место проживания : { props.secondStepData.location }</p>
-            </div>
+            <p className='form-label l b'>Подтверждение</p>
+
+            <TextOutput label='Логин' value={ login }/>
+            <TextOutput label='Пароль' value={ password }/>
+            <TextOutput label='Почта' value={ email }/>
+            <TextOutput label='Владеете бизнесом?' value={ isBusinessman ? 'Да' : 'Нет' }/>
+            <TextOutput label='Имя' value={ name }/>
+            <TextOutput label='Пол' value={ sex }/>
+            <TextOutput label='Телефон' value={ phone }/>
+            <TextOutput label='Дата рождения' value={ birthdate }/>
+            <TextOutput label='Место проживания' value={ location }/>
+
             <Link 
-                className='button form-element b' 
+                className='button form-element b back' 
                 to='..'
             >
                 Назад
@@ -25,7 +30,7 @@ function Confirmation(props) {
             <Link 
                 className='button form-element b' 
                 to='proceed' 
-                onClick={ props.handleSubmit }
+                onClick={ props.onSubmit }
             >
                 Подтвердить
             </Link>

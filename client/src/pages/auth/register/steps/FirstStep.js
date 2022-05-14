@@ -29,12 +29,40 @@ function FirstStep(props) {
             );
     }
 
+    function handleLoginValidity(validity) {
+        setLoginValidity(validity);
+    }
+
+    function handlePasswordValidity(validity) {
+        setPasswordValidity(validity);
+    }
+
+    function handleEmailValidity(validity) {
+        setEmailValidity(validity);
+    }
+
+    function handleLoginChange(value) {
+        setLogin(value);
+    }
+
+    function handlePasswordChange(value) {
+        setPassword(value);
+    }
+
+    function handleEmailChange(value) {
+        setEmail(value);
+    }
+
+    function handleBusinessChange(status) {
+        setBusiness(status);
+    }
+
     return (
         <div className='custom-form flex-container flex-column'>
             <p className='form-label l b'>Регистрация</p>
             <TextInput 
-                onChange={ (value)=>{ setLogin(value) } }
-                handleValidity={ (validity) => { setLoginValidity(validity) } }
+                onChange={ handleLoginChange }
+                handleValidity={ handleLoginValidity }
                 regex={ props.loginRegex }
                 type='text'
                 placeholder='Логин'
@@ -42,16 +70,16 @@ function FirstStep(props) {
                 value={ login }
             />
             <HiddenInput 
-                onChange={ (value)=>{ setPassword(value) } }
-                handleValidity={ (validity) => { setPasswordValidity(validity) } }
+                onChange={ handlePasswordChange }
+                handleValidity={ handlePasswordValidity }
                 regex={ props.passwordRegex }
                 placeholder='Пароль'
                 required={ true }
                 value={ password }
             />
             <TextInput 
-                onChange={ (value)=>{ setEmail(value) } }
-                handleValidity={ (validity) => { setEmailValidity(validity) } }
+                onChange={ handleEmailChange }
+                handleValidity={ handleEmailValidity }
                 regex={ props.emailRegex }
                 placeholder='Почта'
                 required={ true }
@@ -59,7 +87,7 @@ function FirstStep(props) {
             />
             <Checkbox 
                 text='Я владелец бизнеса'
-                onToggle={ (status) => { setBusiness(status) } }
+                onToggle={ handleBusinessChange }
                 status={ isBusinessman }
             />
             <Link className={ clsx('button form-element flex-fill b', (!isLoginValid || !isPasswordValid || !isEmailValid) && 'link-disabled' )} to='second' onClick={ handleSubmit }>Далее</Link>

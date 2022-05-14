@@ -21,12 +21,20 @@ function Login(props) {
         e.preventDefault();
     }
 
+    function handleLoginValidity(validity) {
+        setLoginValidity(validity);
+    }
+
+    function handlePasswordValidity(validity) {
+        setPasswordValidity(validity);
+    }
+
     return (
         <div className='custom-form'>
             <p className='form-label l b'>Вход</p>
             <TextInput
                 onChange={ (value)=>{ setLogin(value) } }
-                handleValidity={ (validity) => { setLoginValidity(validity) } }
+                handleValidity={ handleLoginValidity }
                 regex={ props.loginRegex }
                 type='text'
                 placeholder='Логин'
@@ -34,7 +42,7 @@ function Login(props) {
             />
             <HiddenInput 
                 onChange={ (value)=>{ setPassword(value) } }
-                handleValidity={ (validity) => { setPasswordValidity(validity) } }
+                handleValidity={ handlePasswordValidity }
                 regex={ props.passwordRegex }
                 placeholder='Пароль'
                 required={ true }
