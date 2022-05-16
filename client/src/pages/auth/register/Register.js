@@ -3,8 +3,12 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import FirstStep from './steps/FirstStep';
 import SecondStep from './steps/SecondStep';
 import Confirmation from './steps/Confirmation';
+import ProtectedElement from '../../../components/ProtectedElement';
 
 function Register(props) {
+    const [firstStepPassed, setFirstStepPassed] = useState(false);
+    const [secondStepPassed, setSecondStepPassed] = useState(false);
+
     const [firstStepData, setFirstStepData] = useState({
         login : '',
         password : '',
@@ -23,13 +27,19 @@ function Register(props) {
     });
 
     function onFirstStepSubmit(data) {
-        console.log('First Step Data Changed : ', data);
         setFirstStepData(data);
+        setFirstStepPassed(true);
     }
 
     function onSecondStepSubmit(data) {
-        console.log('Second Step Data Changed : ', data);
         setSecondStepData(data);
+        setSecondStepPassed(true);
+    }
+
+    function onSubmit() {
+        console.log({ firstStepData, secondStepData })
+        if (props.onSubmit)
+            props.onSubmit();
     }
 
     return (
@@ -37,7 +47,7 @@ function Register(props) {
             <Routes>
                 <Route 
                     path='' 
-                    element = { 
+                    element={ 
                         <FirstStep 
                             data={ firstStepData }
                             onSubmit={ onFirstStepSubmit }
@@ -49,23 +59,51 @@ function Register(props) {
                 /> 
                 <Route 
                     path='second' 
-                    element = { 
-                        <SecondStep 
-                            data={ secondStepData }
-                            onSubmit={ onSecondStepSubmit }
-                            nameRegex={ props.nameRegex }
-                            phoneRegex={ props.phoneRegex }
-                            birthdateRegex={ props.birthdateRegex }
-                        /> 
+                    element = {
+                        <ProtectedElement 
+                            element={
+                                <SecondStep 
+                                    data={ secondStepData }
+                                    onSubmit={ onSecondStepSubmit }
+                                    nameRegex={ props.nameRegex }
+                                    phoneRegex={ props.phoneRegex }
+                                    birthdateRegex={ props.birthdateRegex }
+                                />
+                            }
+                            shouldRedirect={ !firstStepPassed }
+                            redirectPath={ '..' }
+                        />
+                        // firstStepPassed === true ?
+                        // <SecondStep 
+                        //     data={ secondStepData }
+                        //     onSubmit={ onSecondStepSubmit }
+                        //     nameRegex={ props.nameRegex }
+                        //     phoneRegex={ props.phoneRegex }
+                        //     birthdateRegex={ props.birthdateRegex }
+                        // /> :
+                        // <Navigate replace to='..'/>
                     }
                 />
                 <Route 
                     path='confirmation' 
-                    element = { 
-                        <Confirmation
-                            firstStepData={ firstStepData }
-                            secondStepData={ secondStepData }
-                        /> 
+                    element = {
+                        <ProtectedElement 
+                            element={
+                                <Confirmation
+                                    firstStepData={ firstStepData }
+                                    secondStepData={ secondStepData }
+                                    onSubmit={ onSubmit }
+                                /> 
+                            }
+                            shouldRedirect={ !secondStepPassed }
+                            redirectPath={ '../second' }
+                        />
+                        // secondStepPassed === true ? 
+                        // <Confirmation
+                        //     firstStepData={ firstStepData }
+                        //     secondStepData={ secondStepData }
+                        // /> :
+                        // <Navigate replace to='../second' />
                     }
                 />
             </Routes>

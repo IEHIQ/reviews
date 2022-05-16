@@ -6,6 +6,7 @@ import TextInput from '../../../../components/TextInput';
 import TextArea from '../../../../components/TextArea';
 import Select from '../../../../components/select/Select';
 import ValidatePropRegex from '../../../../components/PropValidator';
+import ImageInput from '../../../../components/imageInput/ImageInput';
 
 function SecondStep(props) {
     const [name, setName] = useState(props.data.name || '');
@@ -66,6 +67,10 @@ function SecondStep(props) {
         setBio(value);
     }
 
+    function handleProfilePicChange(value) {
+        setProfilePic(value);
+    }
+
     function handleNameValidity(validity) {
         setNameValidity(validity);
     }
@@ -87,9 +92,12 @@ function SecondStep(props) {
             <p className='form-label l b'>Регистрация</p>
             <div className='flex-container flex-row'>
                 <div className='flex-container flex-column'>
-                    <div className='flex-container flex-center form-element pic-picker input flex-fill s'>
-                        {/* TODO */}
-                        Profile Pic Upload
+                    <p className='field-label s'>Фотография профиля</p>
+                    <div className='form-element input flex-container flex-center flex-fill s'>
+                        <ImageInput 
+                            src={ profilePic }
+                            onChange={ handleProfilePicChange }
+                        />
                     </div>
                 </div>
                 <div className='flex-container flex-column'>

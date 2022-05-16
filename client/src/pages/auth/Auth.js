@@ -11,11 +11,25 @@ const PHONE_REGEX = '^((\\+7)|8)[0-9]{10}$';
 const NAME_REGEX = '^([A-Za-zА-Яа-я]+ ?)+[A-Za-zА-Яа-я]$';
 const BIRTHDATE_REGEX = '\\d{4}-\\d{2}-\\d{2}';
 
-function onSubmit(data) {
-    console.log(data);
-}
-
 function Auth(props) {
+
+    function onAuth() {
+        if (props.onAuth)
+            props.onAuth(true)
+    }
+
+    function onLogin(loginData) {
+        if (props.login)
+            props.login(loginData);
+        onAuth();
+    }
+
+    function onRegister(registerData) {
+        if (props.register)
+            props.register(registerData);
+        onAuth();
+    }
+
     return (
         <div className='page flex-container flex-center'>
             <Routes>
@@ -28,7 +42,7 @@ function Auth(props) {
                     path='login/*' 
                     element = { 
                         <Login 
-                            onSubmit={ onSubmit } 
+                            onSubmit={ onLogin } 
                             loginRegex={ LOGIN_REGEX } 
                             passwordRegex={ PASSWORD_REGEX }
                         /> 
@@ -39,7 +53,7 @@ function Auth(props) {
                     path='register/*' 
                     element = { 
                         <Register 
-                            onSubmit={ onSubmit }
+                            onSubmit={ onRegister }
                             loginRegex={ LOGIN_REGEX } 
                             passwordRegex={ PASSWORD_REGEX }
                             emailRegex={ EMAIL_REGEX }

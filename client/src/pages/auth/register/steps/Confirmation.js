@@ -7,19 +7,25 @@ function Confirmation(props) {
     const { name, phone, bio, birthdate, profilePic, location, sex } = props.secondStepData;
 
     return (
-        <div className='card flex-container flex-column'>
+        <div className='custom-form flex-container flex-column'>
             <p className='form-label l b'>Подтверждение</p>
-
-            <TextOutput label='Логин' value={ login }/>
-            <TextOutput label='Пароль' value={ password }/>
-            <TextOutput label='Почта' value={ email }/>
+            <div className='flex-container flex-row'>
+                <div className='flex-container flex-column flex-center profile-pic-container'>
+                    <p>Без фото</p>
+                    <img className='profile-pic' src={ profilePic }/>
+                </div>
+                <div className='flex-container flex-column space-between'>
+                    <TextOutput label='Имя' value={ name }/>
+                    <TextOutput label='Логин' value={ login }/>
+                    <TextOutput label='Пароль' value={ password }/>
+                    <TextOutput label='Почта' value={ email }/>
+                </div>
+            </div>
             <TextOutput label='Владеете бизнесом?' value={ isBusinessman ? 'Да' : 'Нет' }/>
-            <TextOutput label='Имя' value={ name }/>
             <TextOutput label='Пол' value={ sex }/>
             <TextOutput label='Телефон' value={ phone }/>
             <TextOutput label='Дата рождения' value={ birthdate }/>
             <TextOutput label='Место проживания' value={ location }/>
-
             <Link 
                 className='button form-element b back' 
                 to='..'
