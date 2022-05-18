@@ -1,0 +1,27 @@
+@import '../../common'
+    
+.image-drop
+    position: relative
+    color: $black-coffee
+    width: 200px
+    height: 200px
+    border-radius: 10px
+    border: dashed 2px $black-coffee
+    overflow: hidden
+
+.invalid
+    background-color: $candy-pink
+    border: dashed 2px $rose-madder
+    color: $platinum
+
+.image-drop:hover
+    cursor: pointer
+    background-color: $light-gray
+
+.drop-prompt
+    position: absolute
+    text-align: center
+
+.drop-image 
+    position: absolute
+    width: 100%
