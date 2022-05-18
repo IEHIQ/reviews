@@ -1,0 +1,28 @@
+@import '../common'
+
+.nonresizable
+    resize: none
+
+.input
+    border: none
+    outline: none
+    background-color: $platinum
+    color: $rich-black-fogra-39
+
+.text-input:focus
+    box-shadow: inset 0 0 0 3px $blue-crayola
+    outline: none
+
+.text-input::placeholder
+    color: $black-coffee
+
+.error
+    background-color: $candy-pink
+    color: white
+
+.error::placeholder
+    color: $platinum
+
+.error:focus
+    box-shadow: inset 0 0 0 3px $rose-madder
+    outline: none
